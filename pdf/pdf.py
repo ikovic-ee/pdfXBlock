@@ -88,9 +88,6 @@ class pdfXBlock(XBlock, FileUploadMixin):
         }
         html = self.render_template('static/html/pdf_view.html', context)
 
-        if hasattr(self, 'thumbnail_url'):
-            print '///////////////////////////////////////' + str(self.thumbnail_url)
-
         frag = Fragment(html)
         frag.add_css(self.load_resource("static/css/pdf.css"))
         frag.add_javascript(self.load_resource("static/js/pdf_view.js"))
