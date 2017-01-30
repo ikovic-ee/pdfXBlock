@@ -154,7 +154,6 @@ class pdfXBlock(XBlock, FileUploadMixin):
                 upload = data['thumbnail']
                 self.thumbnail_url = self.upload_to_s3('THUMBNAIL', upload.file, block_id, self.thumbnail_url)
 
-
         return Response(json_body={
             'result': "success"
         })
