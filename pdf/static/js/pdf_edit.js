@@ -18,6 +18,8 @@ function pdfXBlockInitEdit(runtime, element) {
         data.append('allow_download', $element.find('#pdf_edit_allow_download').val());
         data.append('thumbnail', $element.find('input[name=thumbnail]')[0].files[0]);
         data.append('pdf_file', $element.find('#pdf_edit_url')[0].files[0]);
+        data.append('document_type', $(element).find('.edit-document-type:checked')[0].value);
+
 
         runtime.notify('save', {state: 'start'});
 

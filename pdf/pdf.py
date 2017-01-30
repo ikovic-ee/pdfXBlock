@@ -49,6 +49,11 @@ class pdfXBlock(XBlock, FileUploadMixin):
                         scope=Scope.content,
                         help="Add a download link for the source file of your PDF. Use it for example to provide the PowerPoint file used to create this PDF.")
 
+    document_type = String(display_name="Document Type",
+                           default="",
+                           scope=Scope.settings,
+                           help="Choose document type")
+
     '''
     Util functions
     '''
@@ -105,7 +110,8 @@ class pdfXBlock(XBlock, FileUploadMixin):
             'allow_download': self.allow_download,
             'source_text': self.source_text,
             'source_url': self.source_url,
-            'display_description': self.display_description
+            'display_description': self.display_description,
+            'document_type_doc': self.document_type == 'doc'
         }
         html = self.render_template('static/html/pdf_edit.html', context)
 
@@ -132,6 +138,9 @@ class pdfXBlock(XBlock, FileUploadMixin):
             self.source_url = data['source_url']
         if 'display_description' in data:
             self.display_description = data['display_description']
+        
+        if 'document_type' in data:
+            self.document_type = data['document_type'] 
 
         if 'pdf_file' in data:
             block_id = data['usage_id']
@@ -144,6 +153,7 @@ class pdfXBlock(XBlock, FileUploadMixin):
             if not isinstance(data['thumbnail'], basestring):
                 upload = data['thumbnail']
                 self.thumbnail_url = self.upload_to_s3('THUMBNAIL', upload.file, block_id, self.thumbnail_url)
+
 
         return Response(json_body={
             'result': "success"
