@@ -20,7 +20,7 @@ class pdfXBlock(XBlock, FileUploadMixin):
     Fields
     '''
     display_name = String(display_name="Display Name",
-                          default="PDF",
+                          default="DATA / DOC: PDF",
                           scope=Scope.settings,
                           help="This name appears in the horizontal navigation at the top of the page.")
 
@@ -48,6 +48,11 @@ class pdfXBlock(XBlock, FileUploadMixin):
                         default="",
                         scope=Scope.content,
                         help="Add a download link for the source file of your PDF. Use it for example to provide the PowerPoint file used to create this PDF.")
+
+    document_type = String(display_name="Document Type",
+                           default="",
+                           scope=Scope.settings,
+                           help="Choose document type")
 
     '''
     Util functions
@@ -105,8 +110,8 @@ class pdfXBlock(XBlock, FileUploadMixin):
             'allow_download': self.allow_download,
             'source_text': self.source_text,
             'source_url': self.source_url,
-            'display_description': self.display_description
-        }
+            'display_description': self.display_description,
+            'document_type_doc': self.document_type == 'doc'        }
         html = self.render_template('static/html/pdf_edit.html', context)
 
         frag = Fragment(html)
@@ -132,6 +137,9 @@ class pdfXBlock(XBlock, FileUploadMixin):
             self.source_url = data['source_url']
         if 'display_description' in data:
             self.display_description = data['display_description']
+        
+        if 'document_type' in data:
+            self.document_type = data['document_type'] 
 
         if 'pdf_file' in data:
             block_id = data['usage_id']
