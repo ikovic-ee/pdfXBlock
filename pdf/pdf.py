@@ -20,7 +20,7 @@ class pdfXBlock(XBlock, FileUploadMixin):
     Fields
     '''
     display_name = String(display_name="Display Name",
-                          default="PDF",
+                          default="DATA / DOC: PDF",
                           scope=Scope.settings,
                           help="This name appears in the horizontal navigation at the top of the page.")
 
