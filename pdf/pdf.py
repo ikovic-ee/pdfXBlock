@@ -111,8 +111,7 @@ class pdfXBlock(XBlock, FileUploadMixin):
             'source_text': self.source_text,
             'source_url': self.source_url,
             'display_description': self.display_description,
-            'document_type_doc': self.document_type == 'doc'
-        }
+            'document_type_doc': self.document_type == 'doc'        }
         html = self.render_template('static/html/pdf_edit.html', context)
 
         frag = Fragment(html)
